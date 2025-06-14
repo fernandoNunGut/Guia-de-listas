@@ -5,7 +5,7 @@ struct nodoL
     nodoL *back;
 };
 
-class List
+class Lista
 {
     private:
         nodoL * _head;
@@ -13,9 +13,12 @@ class List
         int _largo;
     public:
 
-        List(){ _head = nullptr; _tail = nullptr; _largo = 0;}; // Contructor por defecto de las listas
-        ~List(){
-          nodoL *aux, *borrar;
+        // Contructor por defecto de las listas
+        Lista(){ _head = nullptr; _tail = nullptr; _largo = 0;}; 
+
+        // destructor
+        ~Lista(){
+          nodoL *aux;
           aux = _head;
           while (aux != nullptr)
           {
