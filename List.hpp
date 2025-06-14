@@ -34,7 +34,7 @@ class Lista
          * @return char Elemento ubicado al principio de la lista
          */
         char get(){return _head->e;};// retorna el primer valor de lista llamando al puntero y asignandole el elemento [e] (char)
-
+                                     // return the first value the list call the pointer and asigned the elements e
         /**
          * @brief Agrega un elemento al final de la lista
          * 
