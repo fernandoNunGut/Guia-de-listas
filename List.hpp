@@ -33,13 +33,32 @@ class Lista
          * 
          * @return char Elemento ubicado al principio de la lista
          */
-        char get();
+        char get(){return _head->e;};// retorna el primer valor de lista llamando al puntero y asignandole el elemento [e] (char)
+
         /**
          * @brief Agrega un elemento al final de la lista
          * 
          * @param e Elemento que se ingresará en la lista
          */
-        void add(char e);
+        void add(char e){
+          nodoL *nuevo = new nodoL;
+          nuevo->e = e;
+          nuevo->back = nullptr;
+          nuevo->next = nullptr;
+
+          if (_tail == nullptr)
+          {
+            nuevo = _head;
+            nuevo = _tail; 
+          } else {                
+            _tail->next = nuevo; // the tail ingres to next and point the new(nuevo)
+            nuevo->back = _tail; // the new(nuevo) ingres to back(atras) and point the tail
+            _tail = nuevo; // the tail point to new(nuevo)
+          }
+          _largo++; // the long increase in 1
+          
+        };
+
         /**
          * @brief Elimina un elemento al principio de la lista
          * 
