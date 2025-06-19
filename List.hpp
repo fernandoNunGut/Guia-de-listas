@@ -1,3 +1,6 @@
+#include <iostream>
+
+
 struct nodoL
 {
   char e;
