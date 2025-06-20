@@ -75,7 +75,7 @@ public:
     {
       _tail->next = nuevo; // the tail ingres to next and point the new(nuevo)
       nuevo->back = _tail; // the new(nuevo) ingres to back(atras) and point the tail
-      _tail = nuevo; // the tail point to new(nuevo)
+      _tail = nuevo;       // the tail point to new(nuevo)
     }
     _largo++; // the long increases by 1
   };
@@ -121,17 +121,17 @@ public:
     }
 
     // Caso 3: agregar en el medio
-    nodoLN *actual = _head; // el nodo actaul esta apuntando a la cabeza 
+    nodoLN *actual = _head;     // el nodo actaul esta apuntando a la cabeza
     for (int i = 0; i < k; ++i) // recorre hasta la posicion
     {
       actual = actual->next; // nodo actual apunta al elemtento ingredaso de afctual en next(siguiente)
     }
 
-    nodoLN *nuevo = new nodoLN;  // creo un nuevo nodo para mantenener las pocisiones
-    nuevo->k = k; // nuevo nodo le asigono el valor de e y lugo lo apunto a (e)
+    nodoLN *nuevo = new nodoLN; // creo un nuevo nodo para mantenener las pocisiones
+    nuevo->k = k;               // nuevo nodo le asigono el valor de e y lugo lo apunto a (e)
 
-    nuevo->next = actual; // el nodo nuevo ingresa el valor del next(sigiente) y apunta al nodo actual
-    nuevo->back = actual->back; // el nodo nuevo ingresa el valor del next(sigiente) y apunta elemnto ingresado de actual en back(atras)
+    nuevo->next = actual;        // el nodo nuevo ingresa el valor del next(sigiente) y apunta al nodo actual
+    nuevo->back = actual->back;  // el nodo nuevo ingresa el valor del next(sigiente) y apunta elemnto ingresado de actual en back(atras)
     if (actual->back != nullptr) // pregunto si el elemento del nodo de back es distinto de null si es asi ejecuta
     {
       actual->back->next = nuevo; // nodo actual es igual a elemtno de back y back es igual al elemento de next y esto apunta al nodo nuevo
@@ -152,11 +152,10 @@ public:
     std::cout << std::endl;
   }
 
-  int remove()
+  void remove()
   {
     nodoLN *borrar = _head;
     _head = _head->next;
-    char eliminado = borrar->k;
 
     if (_head != nullptr)
     {
@@ -169,46 +168,125 @@ public:
 
     delete borrar;
     _largo--;
+  };
 
-    return eliminado;
-  }; 
-
-  int remove(int k)
+  void remove(int k)
   {
-   if (k < 0 || k >= _largo) {
-    throw std::out_of_range("Posición fuera de rango");
-  }
-
-  nodoLN* borrar;
-
-  // Caso especial: eliminar el primero
-  if (k == 0) {
-    return remove(); // Llama al método remove() que ya tienes
-  }
-
-  // Caso especial: eliminar el último
-  if (k == _largo - 1) {
-    borrar = _tail;
-    _tail = _tail->back;
-    _tail->next = nullptr;
-  } else {
-    // Caso general: eliminar del medio
-    borrar = _head;
-    for (int i = 0; i < k; ++i) {
-      borrar = borrar->next;
+    if (k < 0 || k >= _largo)
+    {
+      throw std::out_of_range("Posición fuera de rango");
     }
 
-    nodoLN* anterior = borrar->back;
-    nodoLN* siguiente = borrar->next;
+    nodoLN *borrar;
 
-    anterior->next = siguiente;
-    siguiente->back = anterior;
-  }
+    // Caso especial: eliminar el primero
+    if (k == 0)
+    {
+      return remove(); // Llama al método remove() que ya tienes
+    }
 
-  char eliminado = borrar->k;
-  delete borrar;
-  _largo--;
+    // Caso especial: eliminar el último
+    if (k == _largo - 1)
+    {
+      borrar = _tail;
+      _tail = _tail->back;
+      _tail->next = nullptr;
+    }
+    else
+    {
+      // Caso general: eliminar del medio
+      borrar = _head;
+      for (int i = 0; i < k; ++i)
+      {
+        borrar = borrar->next;
+      }
 
-  return eliminado;
+      nodoLN *anterior = borrar->back;
+      nodoLN *siguiente = borrar->next;
+
+      anterior->next = siguiente;
+      siguiente->back = anterior;
+    }
+
+    char eliminado = borrar->k;
+    delete borrar;
+    _largo--;
+  };
+
+  void remove(int k1, int k2)
+  {
+    nodoLN *actual = _head;
+
+    for (int i = 0; i < k1; i++)
+    {
+      actual = actual->next;
+    }
+
+    nodoLN *anterior = actual->back;
+
+    for (int i = k1; i <= k2; i++)
+    {
+      nodoLN *borrar = actual;
+      actual = actual->next;
+      delete borrar;
+      _largo--;
+    }
+
+    nodoLN *siguiente = actual;
+
+    // reconexion
+    if (anterior != nullptr)
+    {
+      anterior->next = siguiente;
+    }
+    else
+    {
+      _head = siguiente;
+    }
+
+    if (siguiente != nullptr)
+    {
+      siguiente->back = anterior;
+    }
+    else
+    {
+      _tail = anterior;
+    }
+  };
+
+  void swap(int k1, int k2)
+  {
+    nodoLN *primero = _head;
+
+    for (int i = 0; i < k1; i++)
+    {
+      primero = primero->next;
+    }
+
+    nodoLN *segundo = _head;
+
+    for (int i = 0; i < k2; i++)
+    {
+      segundo = segundo->next;
+    }
+
+    char aux = primero->k;
+    primero->k = segundo->k;
+    segundo->k = aux;
+  };
+
+  void clear()
+  {
+    nodoLN *actual = _head;
+    while (actual != nullptr)
+    {
+      nodoLN *siguiente = actual->next;
+      delete actual;
+      actual = siguiente;
+    }
+
+    _head = nullptr;
+    _tail = nullptr;
+    _largo = 0;
   };
 };

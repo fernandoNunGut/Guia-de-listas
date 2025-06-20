@@ -9,7 +9,7 @@ int main() {
     std::cout << "Antes de eliminar: ";
     lista.mostrar();
 
-    lista.remove();
+    lista.remove_tail();
     std::cout << "Después de eliminar 1 elemento: ";
     lista.mostrar();
 

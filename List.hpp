@@ -209,6 +209,20 @@ public:
     return eliminado;
   };
 
+  void remove_tail(){
+    nodoL *borrar = _tail;
+    _tail = _tail->back; 
+    
+    if(_tail != nullptr){
+      _tail->next = nullptr;
+    } else{
+      _tail = nullptr;
+    }
+
+    delete borrar;
+    _largo--;
+  }
+
   int size() { return _largo; };
 
   bool empty()
