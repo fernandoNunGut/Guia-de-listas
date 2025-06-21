@@ -36,6 +36,8 @@ public:
     }
   };
 
+  int size() { return _largo; };
+
   int get() { return _head->k; };
 
   void addNum(int k)
@@ -289,4 +291,22 @@ public:
     _tail = nullptr;
     _largo = 0;
   };
+
+  int *copyToRef()
+  {
+    if (_largo == 0)
+      return nullptr;
+
+    // Reservar espacio dinámico
+    int *arreglo = new int[_largo];
+
+    nodoLN *actual = _head;
+    for (int i = 0; i < _largo && actual != nullptr; ++i)
+    {
+      arreglo[i] = actual->k;
+      actual = actual->next;
+    }
+
+    return arreglo; // Devolver el puntero al arreglo
+  }
 };

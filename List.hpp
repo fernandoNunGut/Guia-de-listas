@@ -1,6 +1,5 @@
 #include <iostream>
 
-
 struct nodoL
 {
   char e;
@@ -167,16 +166,16 @@ public:
     }
 
     // Caso 3: agregar en el medio
-    nodoL *actual = _head; // el nodo actaul esta apuntando a la cabeza 
+    nodoL *actual = _head;      // el nodo actaul esta apuntando a la cabeza
     for (int i = 0; i < k; ++i) // recorre hasta la posicion
     {
       actual = actual->next; // nodo actual apunta al elemtento ingredaso de actual en next(siguiente)
     }
 
-    nodoL *nuevo = new nodoL;  // creo un nuevo nodo para mantenener las pocisiones
-    nuevo->e = e; // nuevo nodo le asigono el valor de e y lugo lo apunto a (e)
+    nodoL *nuevo = new nodoL; // creo un nuevo nodo para mantenener las pocisiones
+    nuevo->e = e;             // nuevo nodo le asigono el valor de e y lugo lo apunto a (e)
 
-    nuevo->next = actual; // el nodo nuevo ingresa el valor del next(sigiente) y apunta al nodo actual
+    nuevo->next = actual;       // el nodo nuevo ingresa el valor del next(sigiente) y apunta al nodo actual
     nuevo->back = actual->back; // el nodo nuevo ingresa el valor del next(sigiente) y apunta elemnto ingresado de actual en back(atras)
 
     if (actual->back != nullptr) // pregunto si el elemento del nodo de back es distinto de null si es asi ejecuta
@@ -209,13 +208,17 @@ public:
     return eliminado;
   };
 
-  void remove_tail(){
+  void remove_tail()
+  {
     nodoL *borrar = _tail;
-    _tail = _tail->back; 
-    
-    if(_tail != nullptr){
+    _tail = _tail->back;
+
+    if (_tail != nullptr)
+    {
       _tail->next = nullptr;
-    } else{
+    }
+    else
+    {
       _tail = nullptr;
     }
 
@@ -273,4 +276,81 @@ public:
     }
     actual->e = e;
   }
+
+  char *copyToRef() // copia de una lista ya creada a un arrego
+  {
+    if (_largo == 0)  // pegunta si el largo es igual = 0 en ese caso
+      return nullptr; // retorna null, proque no tiene elementos la lista
+
+    // Reservar espacio dinámico
+    char *arreglo = new char[_largo]; // se crea un espacio dinamico para guardar el arreglo
+
+    nodoL *actual = _head;                                // creamos un nodo temporal para que recorra la lista
+    for (int i = 0; i < _largo && actual != nullptr; ++i) // iniicia en el primer elemnto hasta el largo
+    {
+      arreglo[i] = actual->e; // el arreglo en posicion [i] apunta a nodo actual ingresado en el valor (e)
+      actual = actual->next;  // nodo actual apunta al nodo actual ingredado en el siguiente valor(next)
+    }
+
+    return arreglo; // Devolver el puntero al arreglo
+  }
+
+  void copyTo(char array[])
+  {                        // copia lista en arreglo
+    nodoL *actual = _head; // crea nodo teporal llamado actual apuntado a _head
+    int i = 0;             // inicializa i en 0;
+
+    while (actual != nullptr && i < _largo)
+    {                        // pregunta si nodo temporal actual es distinto de nulo Y i el menor al largo de la lista
+      array[i] = actual->e;  // arreglo en la posicion que este apunta al nodo temporal ingresado en el valor e
+      actual = actual->next; // nodo temporal actual apunta al nodo temporal actual ingresado en el valor siguiente
+      ++i;                   // i aumenta en 1  ( se mueve una posicion)
+    }
+  }
+
+  void copyTo(int pos, char array[])
+  {
+    if (pos < 0 || pos > _largo)
+    {
+      return;
+    };
+
+    nodoL *actual = _head;
+
+    for (int i = 0; i < pos; i++)
+    {
+      actual = actual->next;
+    }
+
+    int i = 0;
+    while (actual != nullptr)
+    {
+      array[i] = actual->e;
+      actual = actual->next;
+      i++;
+    }
+  };
+
+  void copyTo(int pos, char array[], int count)
+  {
+    if (pos < 0 || pos >= _largo || count < 0 || pos + count > _largo)
+    {
+      return; // No hace nada si los parámetros no son válidos
+    };
+
+    nodoL *actual = _head;
+
+    for (int i = 0; i < pos; i++)
+    {
+      actual = actual->next;
+    };
+
+    // nodoL *final = inicio->back;
+
+    for (int i = 0; i < count && actual != nullptr; i++)
+    {
+      array[i] = actual->e;
+      actual = actual->next;
+    };
+  };
 };
