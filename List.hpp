@@ -23,6 +23,8 @@ public:
     _largo = 0;
   };
 
+  Lista(const Lista& list); 
+
   // destructor
   ~Lista()
   {
@@ -351,6 +353,53 @@ public:
     {
       array[i] = actual->e;
       actual = actual->next;
+    };
+  };
+
+  void copyTo(int pos, char array[], int k1, int k2)
+  {
+    if (k1 < 0 || pos < 0 || pos >= _largo || k1 > k2)
+    {
+      return;
+    };
+
+    nodoL *actual = _head;
+
+    for (int i = 0; i < pos; i++)
+    {
+      actual = actual->next;
+    };
+
+    for (int i = 0; i < (k2 - k1) && actual != nullptr; i++)
+    {
+      array[pos + i] = actual->e;
+      actual = actual->next;
+    };
+  };
+
+  void add(char array[], int n)
+  {
+    for (int i = 0; i < n; i++)
+    {
+      add(array[i]);
+    };
+  };
+
+  void add_head(char array[], int n)
+  {
+    for (int i = 0; i < n; i++)
+    {
+      add_head(array[i]);
+    };
+  };
+
+  void add_at(int k, char array[], int n)
+  {
+    if (k < 0 || k > _largo || n < 0) return;
+
+    for (int i = 0; i < n; ++i)
+    {
+      add_item(k + i, array[i]); // cada inserción posterior se ajusta sola
     };
   };
 };
