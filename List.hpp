@@ -23,7 +23,7 @@ public:
     _largo = 0;
   };
 
-  Lista(const Lista& list); 
+  Lista(const Lista& list); // crea una lista secundaria para otros usos
 
   // destructor
   ~Lista()
@@ -40,73 +40,73 @@ public:
 
   char get() { return _head->e; }; // return the first value the list call the pointer and asigned the elements e
 
-  char get_item(int k)
+  char get_item(int k) // obtinene el elemento de la posicion indicada por k
   {
-    if (k < 0 || k >= _largo)
+    if (k < 0 || k >= _largo) // pregunta por k es menor a cero o k es mayor igual a _largo // si se cumple retorna null
     {
       std::cerr << "Error: posición inválida.\n";
       return '\0'; // o lanza una excepción si prefieres
     }
 
-    nodoL *aux = _head;
-    int contador = 0;
+    nodoL *aux = _head; // creamos un nodo aux que apunte a la cabeza de la lista
+    int contador = 0; // interamos un contador que se inicializa en 0
 
-    while (aux != nullptr && contador < k)
+    while (aux != nullptr && contador < k) // ejecuta si nodo temporal aux es distinto de nulo y contador es menor a k
     {
-      aux = aux->next;
-      contador++;
+      aux = aux->next; // nodo temporal aux apunta a aux ingresado en next // aux ahora es igual al siguiente nodo
+      contador++; // contador aumenta en 1
     }
 
-    return aux->e;
+    return aux->e; // retorna elemento de aux 
   }
 
-  char get_item2(int k)
+  char get_item2(int k) // buqueda de elemento mas rapida dividiendo la busqueda de cabeza a elemento o de cola a elemento dependiendo de cual este mas cerca
   {
-    if (k < 0 || k >= _largo)
+    if (k < 0 || k >= _largo) // pregunta si valor de entrada k es menor a 0 o k es mayor o igual a largo. si se cumple ejecuta
     {
-      throw std::out_of_range("Índice fuera de rango");
+      throw std::out_of_range("Índice fuera de rango"); 
     }
 
-    nodoL *actual;
-    int i;
+    nodoL *actual; // creamos un nodo temporal para recorrer lista
+    int i; // inicializamos el entero i 
 
     // Si la posición está en la primera mitad
-    if (k <= _largo / 2)
+    if (k <= _largo / 2) // pregunta si k es menor o igual a largo divido en 2 ejecuta 
     {
-      actual = _head;
-      for (i = 0; i < k; i++)
+      actual = _head; // nodo actual apunta a cabeza
+      for (i = 0; i < k; i++) //recorremos hasta posicion k 
       {
-        actual = actual->next;
+        actual = actual->next; // nodoo actual apunta a actual ingresado en next
       }
     }
-    else
+    else //si no 
     {
       // Está en la segunda mitad: retroceder desde el final
-      actual = _tail;
-      for (i = _largo - 1; i > k; i--)
+      actual = _tail; // actual apunta a cola
+      for (i = _largo - 1; i > k; i--) // recorremos lista de cola a posicion k
       {
-        actual = actual->back;
+        actual = actual->back; // nodo actual apunta a actual ingresado en back
       }
     }
 
-    return actual->e;
+    return actual->e; // retorna elemnto de actual 
   }
 
   char get_back() { return _tail->e; }; // return the finish value the list call the pointer and asigned the elements e
 
-  char get_middle()
+  char get_middle() // retorna el elemento que esta a la mitad de la lista priozando el mayor en caso de lista par
   {
-    int mitad = _largo / 2;
-    nodoL *actual = _head;
+    int mitad = _largo / 2; // creamos espacion temporal mitad que sea igual a _largo dividido en 2 // osea la mitad de la lista
+    nodoL *actual = _head; // craemos un nodo temporal para recorrer lista el cual apunta a la cabeza de la lista
 
-    for (int i = 0; i < mitad; i++)
+    for (int i = 0; i < mitad; i++) // recorremos la lista hasta la mitad dada por mitad = _largo/2;
     {
-      actual = actual->next;
+      actual = actual->next; // nodo temporal actual apunta a actual ingresado en next // ahora actual es igual al siguiente nodo
     }
-    return actual->e;
+    return actual->e; // retorna elemento de actual 
   };
 
-  void add(char e)
+  void add(char e) 
   {
     nodoL *nuevo = new nodoL;
     nuevo->e = e;
