@@ -119,7 +119,7 @@ public:
     if (k == 0) // en caso de cumplirse que la posicion a duplicar se la primera
     {
       duplicarPrimero(k); // llama a duplicarPrimero y ejecuta 
-      return; retorna
+      return; 
     }
 
     // Caso 2: agregar al final
